@@ -129,3 +129,5 @@ vectorized_corpus = tfidf.fit_transform(corpus)
 print (vectorized_corpus.todense())
 
 print (tfidf.vocabulary_)
+
+
