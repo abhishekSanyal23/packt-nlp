@@ -16,6 +16,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.linalg import svd
 import numpy as np
 
+#Always set to get the same results.
+np.random.seed(2317)
+
 #Take news section
 sentences = brown.sents(categories = ['news'])[0:500]
 corpus = []
@@ -52,3 +55,20 @@ for t in range(rank):
     for i in range(10):
         print(vectorizer.get_feature_names()[Mtwks[t,i]])
         
+
+Mtwks = np.argsort(np.abs(Vk), axis = 1)[::-1]
+print (corpus[0])
+
+Mdtk = Uk.dot(sk)
+print ('d0 = %.2f*t1 + %.2f*t2' %(Mdtk[0][0] , Mdtk[0][1]))
+
+#Standard SciPy is slow, so truncated SciPy
+from sklearn.decomposition import TruncatedSVD
+tsvd = TruncatedSVD(n_components=rank)
+Xt = tsvd.fit_transform(Xc)
+        
+Mtwks = np.argsort(Vk, axis=1)[::-1]
+for t in range(rank):
+    print ('\nTopic' + str(t))
+    for i in range(10):
+        print(vectorizer.get_feature_names()[Mtwks[t,i]])
